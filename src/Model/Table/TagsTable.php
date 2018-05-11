@@ -70,7 +70,7 @@ class TagsTable extends Table
     {
 
         $tag = trim(strtolower($tag));
-        $slug = strtolower(\Cake\Utility\Text::slug($tag,['transliterateId'=>false]));
+        $slug = strtolower(\Cake\Utility\Text::slug($tag,['transliteratorId'=>false]));
 
         $result = $this->findBySlug($slug,['contain'=>false])->first();
 
