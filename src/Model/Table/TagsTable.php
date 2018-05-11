@@ -65,12 +65,12 @@ class TagsTable extends Table
             ->allowEmpty('slug');
 
         return $validator;
-	}
-	public function getTagID($tag)
-	{
+    }
+    public function getTagID($tag)
+    {
 
         $tag = trim(strtolower($tag));
-		$slug = strtolower(\Cake\Utility\Text::slug($tag));
+        $slug = strtolower(\Cake\Utility\Text::slug($tag,['transliterateId'=>false]));
 
         $result = $this->findBySlug($slug,['contain'=>false])->first();
 
@@ -78,36 +78,36 @@ class TagsTable extends Table
             return $result->id;
         }
 
-		$result = $this->save($this->newEntity([
-			'name'=>$tag,
-			'slug'=>$slug
-		]));
+        $result = $this->save($this->newEntity([
+            'name'=>$tag,
+            'slug'=>$slug
+        ]));
 
         return $result->id;
 
     }
 
-	public function handleCommaSeperatedTags($csv)
-	{
+    public function handleCommaSeperatedTags($csv)
+    {
 
-		$tags = explode(",",$csv);
+        $tags = explode(",", $csv);
 
-		$out = [];
+        $out = [];
 
-		foreach($tags as $tag) {
+        foreach($tags as $tag) {
 
-			$id = $this->getTagID($tag);
+            $id = $this->getTagID($tag);
 
-			$out[] = ['id'=>$id];
+            $out[] = ['id'=>$id];
 
-		}
+        }
 
-		return $out;
+        return $out;
 
-	}
+    }
 
-	public function attachTag($tag,$model,$foreignKey)
-	{
+    public function attachTag($tag,$model,$foreignKey)
+    {
 
         $id = $this->getTagID($tag);
 
@@ -121,8 +121,8 @@ class TagsTable extends Table
 
     }
 
-	public function handleDelete($TagID)
-	{
+    public function handleDelete($TagID)
+    {
 
         $conn = \Cake\Datasource\ConnectionManager::get("default");
 
