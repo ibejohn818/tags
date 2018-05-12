@@ -46,6 +46,14 @@ class TagsTable extends Table
         ]);
     }
 
+    public static function slug($str)
+    {
+
+        $str = preg_replace('/[\s]/mu', '-', $str);
+        $str = preg_replace('/\W/my', '', $str);
+        return strtolower($str);
+    }
+
     /**
      * Default validation rules.
      *
@@ -70,7 +78,7 @@ class TagsTable extends Table
 	{
 
         $tag = trim(strtolower($tag));
-		$slug = strtolower(\Cake\Utility\Text::slug($tag));
+        $slug = static::slug($tag);
 
         $result = $this->findBySlug($slug,['contain'=>false])->first();
 
