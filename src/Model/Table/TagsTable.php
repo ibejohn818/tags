@@ -50,7 +50,7 @@ class TagsTable extends Table
     {
 
         $str = preg_replace('/[\s]/mu', '-', $str);
-        $str = preg_replace('/\W/my', '', $str);
+        $str = preg_replace('/\W/mu', '', $str);
         return strtolower($str);
     }
 
